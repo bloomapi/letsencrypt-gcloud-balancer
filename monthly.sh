@@ -7,7 +7,7 @@ set -e
 USE_STAGING_SERVER="${USE_STAGING_SERVER+--server=https://acme-staging.api.letsencrypt.org/directory}"
 
 # Lets Encrypt Renew
-./lego_linux_amd64 $USE_STAGING_SERVER -m $LETSENCRYPT_EMAIL -dns gcloud $DOMAINS_LIST -a renew
+./lego_linux_amd64 $USE_STAGING_SERVER --dns-timeout 30 -m $LETSENCRYPT_EMAIL -dns gcloud $DOMAINS_LIST -a renew
 
 # Create certificate chain
 CERT=$(ls -1 /root/.lego/certificates | grep crt\$ | grep -m1 -v issuer)
