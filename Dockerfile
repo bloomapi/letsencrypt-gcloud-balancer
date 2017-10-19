@@ -3,7 +3,7 @@ FROM debian:jessie
 WORKDIR /root
 
 RUN apt-get update \
-    && apt-get install -y wget python xz-utils \
+    && apt-get install -y wget python xz-utils cron \
     && rm -rf /var/lib/apt/lists/*
 
 RUN wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-176.0.0-linux-x86_64.tar.gz \

@@ -1,11 +1,15 @@
 Let's Encrypt Google Compute HTTP Load Balancer Docker Updater
 ===========
 
-Run from a machine already in GCP.
+Run from a machine already in GCP where the machine itself is authorized to update HTTPS load balancer certificates. This container also requires you use GCP as your DNS provider as it uses GCP-DNS-based Let's Encrypt verification.
 
-    docker run bloomapi/letsencrypt-gcloud-balancer --env GCE_PROJECT=gcp-project-name --env LETSENCRYPT_EMAIL=my@email.com --env TARGET_PROXY=name-of-gcp-target-https-proxy --env DOMAINS_LIST="-d domains.list -d where.each -d is.prefixed.by.a.dash.d"
+    docker run --env GCE_PROJECT=gcp-project-name --env LETSENCRYPT_EMAIL=my@email.com --env TARGET_PROXY=name-of-gcp-target-https-proxy --env DOMAINS_LIST="-d domains.list -d where.each -d is.prefixed.by.a.dash.d" bloomapi/letsencrypt-gcloud-balancer
 
-If you are testing, its also worth setting `--env USE_STAGING_SERVER=true` to avoid being rate limited by Let's Encrypt for the month.
+In production, consider mounting a persistent volume at `/root/.lego` so you don't loose your Let's Encrypt credentials / certs. That said, the scripts currently only work when one certificate / key pair is stored in the container. If you want to change the domains while using persistant storage, make sure you clear the certs and keys out of the `/root/.lego/certificates` directory.
+
+If you are testing, its also worth setting `--env USE_STAGING_SERVER=true` to avoid being rate limited by Let's Encrypt for the month. Keep in mind that since this uses DNS-based verification, it depends on the expiration of DNS TXT records. While this wont matter in production, while testing, you may need to wait 120 seconds between tests.
+
+This container will attempt to renew certificates once a month. The container will also try to have an initial issuing of the certs on first run.
 
 ### Required Environment Variables
 
