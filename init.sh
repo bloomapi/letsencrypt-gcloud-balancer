@@ -3,7 +3,7 @@
 set -e
 
 # Set Staging server if parameter is set
-USE_STAGING_SERVER="${USE_STAGING_SERVER+--server=https://acme-staging.api.letsencrypt.org/directory}"
+USE_STAGING_SERVER="${USE_STAGING_SERVER+--server=https://acme-staging-v02.api.letsencrypt.org/directory}"
 
 # On Startup
 # Lets Encrypt Initialize
