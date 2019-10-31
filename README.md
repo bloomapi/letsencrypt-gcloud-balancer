@@ -21,5 +21,7 @@ This container will attempt to renew certificates once a month. The container wi
 ### Optional Variables
 
 * `USE_STAGING_SERVER` if set, We'll use the Let's Encrypt staging server. This wont issue usable certs, but will allow you to use / reuse the same domains list. *Warning* if you re-create this container more than 5 times in a month without a persistent volume, you will be rate limited and you wont be able to get more certificates until the next month.
+* `CERT_ID_PREFIX` will create new certificates with this string followed by `cert-${random string}`
+
 
 Leave the docker container running, and it will attempt to update the cert once a month and remove the older cert once the new cert is installed.
