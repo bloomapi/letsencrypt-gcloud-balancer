@@ -11,7 +11,6 @@ RUN wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud
     && ./google-cloud-sdk/install.sh --usage-reporting false \
     && rm google-cloud-sdk-176.0.0-linux-x86_64.tar.gz
 
-# Current release needs fixes from master
 RUN wget https://github.com/go-acme/lego/releases/download/v3.0.2/lego_v3.0.2_linux_amd64.tar.gz \
     && tar -xzf lego_v3.0.2_linux_amd64.tar.gz lego \
     && rm lego_v3.0.2_linux_amd64.tar.gz
